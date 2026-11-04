@@ -5,10 +5,9 @@ import java.io.InputStreamReader;
 
 public class Cowsay {
   public static String run(String input) {
-    ProcessBuilder processBuilder = new ProcessBuilder();
-    String cmd = "/usr/games/cowsay '" + input + "'";
-    System.out.println(cmd);
-    processBuilder.command("bash", "-c", cmd);
+    // No shell is involved: the executable is hardcoded and the user input is passed
+    // as a single argv element ("--" stops option parsing), so it cannot inject commands.
+    ProcessBuilder processBuilder = new ProcessBuilder("/usr/games/cowsay", "--", input);
 
     StringBuilder output = new StringBuilder();
 
